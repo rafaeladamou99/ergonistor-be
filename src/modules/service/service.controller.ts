@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
@@ -35,8 +36,8 @@ export class ServiceController {
   }
 
   @Get()
-  async getServices() {
-    return this.serviceService.getServices();
+  async getServices(@Query('category') category?: string) {
+    return this.serviceService.getServices(category);
   }
 
   @Get(':id')

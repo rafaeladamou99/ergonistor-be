@@ -23,6 +23,12 @@ const PageObjectSchema = new mongoose.Schema({
   msg: { type: String, required: true },
 });
 
+// HomeObject schema
+const HomeObjectSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  msg: { type: String, required: true },
+});
+
 const PageContactSchema = new mongoose.Schema({
   title: { type: String, required: true },
   msg: { type: String, required: true },
@@ -54,7 +60,7 @@ const FaqObjectSchema = new mongoose.Schema({
 
 // ContentResponse schema
 const ContentResponseSchema = new mongoose.Schema({
-  home: { type: PageObjectSchema, required: true },
+  home: { type: HomeObjectSchema, required: true },
   services: { type: PageObjectWithSubSchema, required: true },
   projects: { type: PageObjectWithSubSchema, required: true },
   about: { type: AboutObjectSchema, required: true },
@@ -88,6 +94,8 @@ interface IPageObject {
   msg: string;
 }
 
+interface IHomeObject extends IPageObject {}
+
 // PageObjectWithSub interface (extends IPageObject)
 interface IPageObjectWithSub extends IPageObject {
   subtitle: string;
@@ -116,7 +124,7 @@ interface IContactObject extends IPageObject {
 
 // ContentResponse interface
 interface IContentResponse {
-  home: IPageObject;
+  home: IHomeObject;
   services: IPageObjectWithSub;
   projects: IPageObjectWithSub;
   about: IAboutObject;

@@ -9,6 +9,8 @@ import { ContentModule } from './modules/content/content.module';
 import { ProjectModule } from './modules/project/project.module';
 import { ServiceModule } from './modules/service/service.module';
 import { SliderModule } from './modules/slider/slider.module';
+import { UploadModule } from './modules/upload/upload.module';
+import { ServiceCategoriesModule } from './modules/service-categories/service-categories.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { SliderModule } from './modules/slider/slider.module';
     ProjectModule,
     ServiceModule,
     SliderModule,
+    UploadModule,
+    ServiceCategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],

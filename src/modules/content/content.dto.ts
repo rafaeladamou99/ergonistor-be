@@ -37,6 +37,15 @@ class PageObject {
   msg: string;
 }
 
+class HomeObject {
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+  @IsString()
+  @IsNotEmpty()
+  msg: string;
+}
+
 class PageObjectWithSub extends PageObject {
   @IsString()
   @IsNotEmpty()
@@ -79,7 +88,7 @@ class ContactObject extends PageObject {
 class ContentResponse {
   @IsObject()
   @IsNotEmpty()
-  home: PageObject;
+  home: HomeObject;
   @IsObject()
   @IsNotEmpty()
   services: PageObjectWithSub;

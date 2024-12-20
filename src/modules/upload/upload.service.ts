@@ -26,6 +26,8 @@ export class UploadService {
           Bucket: bucket,
           Key: timestamp + _fileName,
           Body: file,
+          ContentType: _fileName.includes('.svg') ? 'image/svg+xml' : '', // Explicitly set Content-Type
+          ContentDisposition: 'inline',
           ACL: 'public-read',
         }),
       );

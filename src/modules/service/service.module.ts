@@ -18,9 +18,6 @@ import { ServiceCategoriesModule } from '../service-categories/service-categorie
   ],
   providers: [ServiceService, UploadService, ServiceCategoriesService],
   controllers: [ServiceController],
-  exports: [
-    ServiceService,
-    // MongooseModule.forFeature([{ name: 'Service', schema: ServiceDtoSchema }]),
-  ],
+  exports: [ServiceService],
 })
 export class ServiceModule {}

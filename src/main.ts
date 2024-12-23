@@ -33,8 +33,8 @@ async function bootstrap() {
 
   app.enableCors(corsOptions);
 
-  app.use(express.json({ limit: '20mb' })); // For JSON payloads
-  app.use(express.urlencoded({ limit: '20mb', extended: true }));
+  app.use(express.json({ limit: '50mb' })); // For JSON payloads
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
   await app.listen(8000);
 }

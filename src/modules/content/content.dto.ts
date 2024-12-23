@@ -3,9 +3,11 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsObject,
+  IsOptional,
   IsString,
   isArray,
 } from 'class-validator';
+import { ImageObject } from '../project/project.dto';
 
 class SectionObject {
   @IsString()
@@ -16,16 +18,15 @@ class SectionObject {
   paragraphs: string[];
 }
 
-class PeopleObject {
+export class PeopleObject {
   @IsString()
   @IsNotEmpty()
   name: string;
   @IsString()
   @IsNotEmpty()
   position: string;
-  @IsString()
   @IsNotEmpty()
-  img: string;
+  img: ImageObject | string;
 }
 
 class PageObject {

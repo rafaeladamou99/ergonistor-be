@@ -82,7 +82,7 @@ interface ISectionObject {
 }
 
 // PeopleObject interface
-interface IPeopleObject {
+export interface IPeopleObject {
   name: string;
   position: string;
   img: string;
@@ -123,7 +123,7 @@ interface IContactObject extends IPageObject {
 }
 
 // ContentResponse interface
-interface IContentResponse {
+export interface IContentResponse {
   home: IHomeObject;
   services: IPageObjectWithSub;
   projects: IPageObjectWithSub;

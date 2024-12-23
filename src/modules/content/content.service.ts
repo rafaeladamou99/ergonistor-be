@@ -6,14 +6,16 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ContentDto } from './content.dto';
-import { Content } from './content.model';
+import { ContentDto, PeopleObject } from './content.dto';
+import { Content, IContentResponse, IPeopleObject } from './content.model';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ContentService {
   constructor(
     @InjectModel('Content')
     private readonly contentModel: Model<Content>,
+    private readonly uploadService: UploadService,
   ) {}
 
   async findContent(content_title: string) {
@@ -95,10 +97,35 @@ export class ContentService {
     }
   }
 
+  async getKeyPeople(keyPeople: PeopleObject[]) {
+    const _keyPeople: PeopleObject[] = [];
+    for (const person of keyPeople) {
+      const img =
+        typeof person.img === 'string'
+          ? person.img
+          : await this.uploadService.upload(
+              person.img.name,
+              Buffer.from(person.img.buffer),
+            );
+      const newPerson = {
+        ...person,
+        img,
+      };
+      _keyPeople.push(newPerson);
+    }
+    return _keyPeople;
+  }
+
   async updateContent(content: ContentDto) {
     try {
       const foundContent = await this.findContent(content.content_title);
-      foundContent.content = content.content;
+      const _key_people = await this.getKeyPeople(
+        content.content.about.key_people,
+      );
+      content.content.about.key_people = _key_people;
+
+      foundContent.content = content.content as IContentResponse;
+
       if (content.is_primary && !foundContent.is_primary) {
         await this.setContentAsNonPrimary();
       } else if (!content.is_primary && foundContent.is_primary) {
@@ -141,6 +168,12 @@ export class ContentService {
         if (newContent.is_primary) {
           await this.setContentAsNonPrimary();
         }
+
+        const _key_people = await this.getKeyPeople(
+          newContent.content.about.key_people,
+        );
+        newContent.content.about.key_people = _key_people as IPeopleObject[];
+
         const _content = await newContent.save();
         return _content;
       }

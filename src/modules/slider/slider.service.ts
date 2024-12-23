@@ -101,19 +101,18 @@ export class SliderService {
         }
       }
 
-      const logoUrl =
-        typeof logo === 'string'
-          ? logo
-          : await this.uploadService.upload(
-              logo.name,
-              Buffer.from(logo.buffer),
-            );
-
       const modifiedSlider = {
         ...sliderDto,
         imgs: newImgs,
-        logo: logoUrl,
       };
+
+      if (logo) {
+        const logoUrl = await this.uploadService.upload(
+          logo.name,
+          Buffer.from(logo.buffer),
+        );
+        Object.defineProperty(modifiedSlider, 'logo', { value: logoUrl });
+      }
 
       const slider = this.sliderModel
         .findByIdAndUpdate(id, modifiedSlider, {

@@ -3,6 +3,7 @@ import {
   IsArray,
   IsNotEmpty,
   IsObject,
+  IsOptional,
   IsString,
   ValidateIf,
   ValidateNested,
@@ -25,7 +26,6 @@ export class SliderDto {
   @ValidateIf((obj) => typeof obj === 'object' || typeof obj === 'string')
   imgs: (ImageObject | string)[];
   @IsObject()
-  @Type(() => ImageObject)
-  @ValidateIf((obj) => typeof obj === 'object' || typeof obj === 'string')
-  logo: ImageObject | string;
+  @IsOptional()
+  logo: ImageObject;
 }

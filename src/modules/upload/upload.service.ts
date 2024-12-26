@@ -15,7 +15,7 @@ export class UploadService {
     });
   }
 
-  async uploadToS3(fileName: string, file: Buffer, timestamp: number) {
+  async uploadToS3(fileName: string, file: Buffer, timestamp: string) {
     const bucket = this.configService.get<string>('S3_BUCKET');
     try {
       const imageUploaded = await this.s3Client.send(
@@ -29,7 +29,7 @@ export class UploadService {
         }),
       );
       if (imageUploaded.$metadata.httpStatusCode === 200) {
-        return `https://${bucket}.s3.${this.region}.amazonaws.com/${fileName + timestamp}`;
+        return `https://${bucket}.s3.${this.region}.amazonaws.com/${timestamp + fileName}`;
       }
       throw new Error('Image not saved to S3');
     } catch (error) {
@@ -39,16 +39,22 @@ export class UploadService {
 
   async upload(fileName: string, file: Buffer) {
     const _fileName = fileName.replaceAll(' ', '_');
-    const _placeholderName = `placeholders/${_fileName}`;
-    const _imageName = `images/${_fileName}`;
     const timestamp = Date.now();
 
     try {
       const placeholderBuffer = await sharp(file)
         .resize({ width: 100, fit: 'inside' })
         .toBuffer();
-      await this.uploadToS3(_placeholderName, placeholderBuffer, timestamp);
-      const originalImgUrl = await this.uploadToS3(_imageName, file, timestamp);
+      await this.uploadToS3(
+        _fileName,
+        placeholderBuffer,
+        `placeholders/${timestamp}`,
+      );
+      const originalImgUrl = await this.uploadToS3(
+        _fileName,
+        file,
+        `images/${timestamp}`,
+      );
       return originalImgUrl;
     } catch (error) {
       throw error;

@@ -38,8 +38,8 @@ export class SliderService {
       if (sliders.length) {
         throw new InternalServerErrorException('Slider already exists');
       }
-      if (slider.imgs.length > 10) {
-        throw new InternalServerErrorException('Images cannot be more than 10');
+      if (slider.imgs.length > 15) {
+        throw new InternalServerErrorException('Images cannot be more than 15');
       }
 
       const { imgs, logo } = slider;
@@ -81,8 +81,8 @@ export class SliderService {
 
   async updateSlider(id: string, sliderDto: SliderDto) {
     try {
-      if (sliderDto.imgs.length > 10) {
-        throw new InternalServerErrorException('Images cannot be more than 10');
+      if (sliderDto.imgs.length > 15) {
+        throw new InternalServerErrorException('Images cannot be more than 15');
       }
 
       const { imgs, logo } = sliderDto;

@@ -11,9 +11,6 @@ export class ServiceCategoryDto {
   @IsString()
   @IsNotEmpty()
   title: string;
-  @IsString()
-  @IsNotEmpty()
-  description: string;
   @IsObject()
   @IsOptional()
   img: ImageObject;

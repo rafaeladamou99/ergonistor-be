@@ -33,6 +33,7 @@ const PageContactSchema = new mongoose.Schema({
   title: { type: String, required: true },
   msg: { type: String, required: true },
   telephone: { type: ContactMediumSchema, required: true },
+  linkedin: { type: ContactMediumSchema, required: true },
   email: { type: ContactMediumSchema, required: true },
 });
 
@@ -66,6 +67,7 @@ const ContentResponseSchema = new mongoose.Schema({
   about: { type: AboutObjectSchema, required: true },
   faq: { type: FaqObjectSchema, required: true },
   contact: { type: PageContactSchema, required: true },
+  copyrightMsg: { type: String, required: true },
 });
 
 // Main ContentDto schema
@@ -119,6 +121,7 @@ interface IContactMediumObject {
 
 interface IContactObject extends IPageObject {
   telephone: IContactMediumObject;
+  linkedin: IContactMediumObject;
   email: IContactMediumObject;
 }
 
@@ -130,6 +133,7 @@ export interface IContentResponse {
   about: IAboutObject;
   faq: IFaqObject;
   contact: IContactObject;
+  copyrightMsg: string;
 }
 
 // Main ContentDto document interface

@@ -83,6 +83,9 @@ class ContactObject extends PageObject {
   telephone: ContactMediumObject;
   @IsObject()
   @IsNotEmpty()
+  linkedin: ContactMediumObject;
+  @IsObject()
+  @IsNotEmpty()
   email: ContactMediumObject;
 }
 
@@ -105,6 +108,9 @@ class ContentResponse {
   @IsObject()
   @IsNotEmpty()
   contact: ContactObject;
+  @IsString()
+  @IsNotEmpty()
+  copyrightMsg: string;
 }
 
 export class ContentDto {

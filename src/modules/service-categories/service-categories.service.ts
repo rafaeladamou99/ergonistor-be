@@ -9,7 +9,6 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { ServiceCategory } from './service-categories.model';
 import { Model } from 'mongoose';
-import { UploadService } from '../upload/upload.service';
 import { ServiceCategoryDto } from './service-categories.dto';
 import { ServiceService } from '../service/service.service';
 
@@ -18,7 +17,6 @@ export class ServiceCategoriesService {
   constructor(
     @InjectModel('ServiceCategory')
     private readonly serviceCategoryModel: Model<ServiceCategory>,
-    private readonly uploadService: UploadService,
     @Inject(forwardRef(() => ServiceService))
     private readonly service: ServiceService,
   ) {}
@@ -55,15 +53,7 @@ export class ServiceCategoriesService {
 
   async createServiceCategory(service: ServiceCategoryDto) {
     try {
-      const url = await this.uploadService.upload(
-        service.img.name,
-        Buffer.from(service.img.buffer),
-      );
-
-      const modifiedService = { ...service, img: url };
-      const newContent = await new this.serviceCategoryModel(
-        modifiedService,
-      ).save();
+      const newContent = await new this.serviceCategoryModel(service).save();
       return newContent;
     } catch (error) {
       throw new InternalServerErrorException('Error');
@@ -72,20 +62,10 @@ export class ServiceCategoriesService {
 
   async updateServiceCategory(id: string, serviceDto: ServiceCategoryDto) {
     try {
-      const modifiedService: Partial<ServiceCategoryDto> = { ...serviceDto };
-
-      if (serviceDto.img) {
-        const url = await this.uploadService.upload(
-          serviceDto.img.name,
-          Buffer.from(serviceDto.img.buffer),
-        );
-        Object.defineProperty(modifiedService, 'img', { value: url });
-      }
-
       const service = await this.serviceCategoryModel
         .findByIdAndUpdate(
           id,
-          { $set: modifiedService },
+          { $set: serviceDto },
           { new: true, runValidators: true },
         )
         .exec();

@@ -96,7 +96,9 @@ interface IPageObject {
   msg: string;
 }
 
-interface IHomeObject extends IPageObject {}
+interface IHomeObject extends IPageObject {
+  msg2: string;
+}
 
 // PageObjectWithSub interface (extends IPageObject)
 interface IPageObjectWithSub extends IPageObject {

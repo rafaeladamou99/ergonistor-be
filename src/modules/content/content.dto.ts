@@ -45,6 +45,9 @@ class HomeObject {
   @IsString()
   @IsNotEmpty()
   msg: string;
+  @IsString()
+  @IsNotEmpty()
+  msg2: string;
 }
 
 class PageObjectWithSub extends PageObject {

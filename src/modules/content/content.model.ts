@@ -27,6 +27,7 @@ const PageObjectSchema = new mongoose.Schema({
 const HomeObjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
   msg: { type: String, required: true },
+  msg2: { type: String, required: true },
 });
 
 const PageContactSchema = new mongoose.Schema({

@@ -26,6 +26,7 @@ const PageObjectSchema = new mongoose.Schema({
 // HomeObject schema
 const HomeObjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
+  subtitle: { type: String, required: true },
   msg: { type: String, required: true },
   msg2: { type: String, required: true },
 });
@@ -97,7 +98,7 @@ interface IPageObject {
   msg: string;
 }
 
-interface IHomeObject extends IPageObject {
+interface IHomeObject extends IPageObjectWithSub {
   msg2: string;
 }
 

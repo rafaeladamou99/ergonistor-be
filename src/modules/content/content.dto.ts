@@ -44,6 +44,9 @@ class HomeObject {
   title: string;
   @IsString()
   @IsNotEmpty()
+  subtitle: string;
+  @IsString()
+  @IsNotEmpty()
   msg: string;
   @IsString()
   @IsNotEmpty()

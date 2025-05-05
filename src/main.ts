@@ -26,6 +26,7 @@ async function bootstrap() {
       'http://192.168.10.10:3001',
       'https://ergonistor-production.up.railway.app',
       'https://ergonistor-manager-production.up.railway.app',
+      'https://www.ergonistor.com'
     ], // Specify allowed origins
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify allowed HTTP methods
     allowedHeaders: 'Content-Type, Authorization', // Specify allowed headers

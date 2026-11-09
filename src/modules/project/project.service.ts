@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Get,
   Injectable,
   InternalServerErrorException,
@@ -36,6 +37,10 @@ export class ProjectService {
   }
 
   async createProject(project: ProjectDto) {
+    if (!project.img1?.name || !project.img1?.buffer) {
+      throw new BadRequestException('Image is required');
+    }
+
     try {
       const { img1, img2, img3, img4, img5 } = project;
 

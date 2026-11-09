@@ -1,8 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from '../auth/auth.module';
-import { UploadModule } from '../upload/upload.module';
-import { UploadService } from '../upload/upload.service';
 import { ServiceController } from './service.controller';
 import { ServiceDtoSchema } from './service.model';
 import { ServiceService } from './service.service';
@@ -13,10 +11,9 @@ import { ServiceCategoriesModule } from '../service-categories/service-categorie
   imports: [
     MongooseModule.forFeature([{ name: 'Service', schema: ServiceDtoSchema }]),
     forwardRef(() => AuthModule),
-    UploadModule,
     forwardRef(() => ServiceCategoriesModule),
   ],
-  providers: [ServiceService, UploadService, ServiceCategoriesService],
+  providers: [ServiceService, ServiceCategoriesService],
   controllers: [ServiceController],
   exports: [ServiceService],
 })
